@@ -1,4 +1,9 @@
-var context = document.getElementById('canvas').getContext('2d');
+function clearCanvas () {
+    context.save();
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.restore();
+};
 
 function drawVerticalLine (line) {
     context.lineWidth = 3;
@@ -19,22 +24,10 @@ function getRandomColor () {
     return '#' + rand.toString(16);
 };
 
-function drawColorLine (num) {
-    var x = 50
-    var yA = 10
-    var yB = 50
-    var arr = [];
-    for (var i = 0; i < num; i++) {
-	line = {};
-	line.pointA = {'x': x, 'y': yA};
-	line.pointB = {'x': x, 'y': yB};
-	line.color = getRandomColor();
-	line.value = parseInt(line.color.slice(1), 16)
-	drawVerticalLine(line);
-	x += 5;
-	arr.push(line);
-    }
-    return arr;
+function drawColorLine (colorLine) {
+    for (var i = 0; i < colorLine.length; i++)
+	drawVerticalLine(colorLine[i]);
 };
 
-var unsortedArray = drawColorLine(100);
+var canvas = document.getElementById('canvas'),
+    context = canvas.getContext('2d');
