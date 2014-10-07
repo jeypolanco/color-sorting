@@ -17,18 +17,13 @@ var colorLine = {
     },
 };
 
-colorLine.array = colorLine.getColorLine(100);
-colorLine.array.exch = function (src, trg) {
-    if ((typeof(src) === "number") && (typeof(trg) === "number")) {
-	// this code assumes that an array has already been generated
-	var tmp = this[src].color
-	this[src].color = this[trg].color
-	this[trg].color = tmp
-	// assigns new decimal values
-	this[src].value = parseInt(this[src].color.slice(1), 16);
-	this[trg].value = parseInt(this[trg].color.slice(1), 16);
-    }
-};
+function animateColorLineSorting () {
+    partialSort();
+    clearCanvas();
+    drawColorLine(colorLine.array);
+}
 
+colorLine.array = colorLine.getColorLine(100);
 drawColorLine(colorLine.array);
-selectionSort(colorLine.array);
+partialSort = selectionSort(colorLine.array);
+repeatFromEQ(colorLine.array.length, 1000, animateColorLineSorting);

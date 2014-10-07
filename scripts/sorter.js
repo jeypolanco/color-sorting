@@ -1,18 +1,39 @@
+function exch (array, src, trg) {
+    if ((typeof(src) === "number") && (typeof(trg) === "number")) {
+	// this code assumes that an array has already been generated
+	var tmp = array[src].color
+	array[src].color = array[trg].color
+	array[trg].color = tmp
+	// assigns new decimal values
+	array[src].value = parseInt(array[src].color.slice(1), 16);
+	array[trg].value = parseInt(array[trg].color.slice(1), 16);
+    }
+}
+
 function less (valA, valB) {
     return valA.value < valB.value;  
-};
+}
+
+function getSmallest (start, array) {
+    var smallest = start
+    for (var j = start; j < array.length; j++) {
+	if (less(array[j], array[smallest])) {
+	    smallest = j;
+	}
+    }
+    return smallest
+}
 
 function selectionSort(array) {
-    for (var i = 0; i < array.length; i++) {
-	var smallest = i;
-	for (var j = i; j < array.length; j++) {
-	    if (less(array[j], array[smallest])) {
-		smallest = j;
-	    }
+    var currIdx = 0;
+    return function () {
+	if (currIdx < array.length){
+	    var smallest = getSmallest(currIdx, array)
+	    exch(array, smallest, currIdx);
+	    currIdx += 1;
 	}
-	array.exch(smallest, i);
     }
-};
+}
 
 function isSorted (array) {
     for (var i = 1; i < array.length; i++) {
@@ -21,4 +42,4 @@ function isSorted (array) {
 	}
     }
     return true;
-};
+}
