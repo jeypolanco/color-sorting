@@ -1,17 +1,14 @@
 function exch (array, src, trg) {
     if ((typeof(src) === "number") && (typeof(trg) === "number")) {
 	// this code assumes that an array has already been generated
-	var tmp = array[src].color
-	array[src].color = array[trg].color
-	array[trg].color = tmp
-	// assigns new decimal values
-	array[src].value = parseInt(array[src].color.slice(1), 16);
-	array[trg].value = parseInt(array[trg].color.slice(1), 16);
+	var tmp = array[src]
+	array[src] = array[trg]
+	array[trg] = tmp
     }
 }
 
 function less (valA, valB) {
-    return valA.value < valB.value;  
+    return valA < valB;  
 }
 
 function getSmallest (start, array) {
